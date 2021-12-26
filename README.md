@@ -1,4 +1,4 @@
-# hello
+# Personal Blog
 
 ## Project setup
 ```
