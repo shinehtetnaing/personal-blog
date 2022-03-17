@@ -2,25 +2,30 @@
   <div class="position-relative">
     <Modal v-if="modalActive" @closeModal="closeModal" :modalMessage="modalMessage" />
     <Loading v-if="loading" />
-    <div class="reset vh-100 d-flex justify-content-center align-items-center">
-      <div class="reset-container text-center rounded-3">
-        <h1 class="reset-title mb-4">Reset Password</h1>
-        <div class="reset-form">
-          <form>
-            <div class="mb-3">
-              <p>Forgot your password? Enter your email to reset it</p>
-            </div>
-            <div class="mb-3">
-              <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
-            </div>
-            <div class="mb-5">
-              <button class="btn btn-primary btn-lg w-100 sign-in" @click.prevent="reset">Reset</button>
-            </div>
-          </form>
-        </div>
-        <div class="login">
-          <span>Back to</span>
-          <router-link class="link" :to="{ name: 'Login'}">Login</router-link>
+    <div class="d-flex">
+      <div class="reset-bg">
+        <img src="@/assets/img/forgot_password.jpg" alt="forgot_password_background">
+      </div>
+      <div class="reset d-flex align-items-center p-5">
+        <div class="reset-container text-center">
+          <h1 class="reset-title mb-4">Reset Password</h1>
+          <div class="reset-form p-3">
+            <form>
+              <div class="mb-4">
+                <p>Forgot your password? Enter your email to reset it</p>
+              </div>
+              <div class="mb-4">
+                <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
+              </div>
+              <div class="mb-4">
+                <button class="btn btn-primary btn-lg w-100 sign-in" @click.prevent="reset">Reset</button>
+              </div>
+            </form>
+          </div>
+          <div class="login p-3">
+            <span>Back to</span>
+            <router-link class="link" :to="{ name: 'Login'}">Login</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -68,35 +73,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.reset-bg {
+  flex: 1 1 50%;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 .reset {
+  flex: 1 1 50%;
   background-color: #e9faff;
 
   .reset-container {
-    background-color: #fff;
-    width: 500px;
-    padding: 50px;
+    width: 70%;
+    margin: 0 auto;
+  }
 
-    box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  .error {
+    color: red;
+  }
 
-    .reset-form {
-      .reset {
-        text-transform: uppercase;
+  .reset-form {
+    .reset {
+      text-transform: uppercase;
 
-        &:hover {
-          background-color: #333 !important;
-        }
+      &:hover {
+        background-color: #333 !important;
       }
     }
+  }
 
-    .login {
-      .link {
-        text-decoration: none;
-        margin: 0 5px;
-      }
+  .login {
+    .link {
+      text-decoration: none;
+      margin: 0 5px;
     }
   }
 }

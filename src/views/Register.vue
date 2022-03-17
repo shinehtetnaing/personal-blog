@@ -1,30 +1,35 @@
 <template>
-  <div class="register vh-100 d-flex justify-content-center align-items-center">
-    <div class="register-container text-center rounded-3">
-      <h1 class="register-title mb-4">Register</h1>
-      <div class="error mb-3" v-if="error">{{ errorMsg }}</div>
-      <div class="register-form">
-        <form>
-          <div class="mb-3">
-            <input type="text" class="form-control form-control-lg" placeholder="First Name" v-model="firstName">
-          </div>
-          <div class="mb-3">
-            <input type="text" class="form-control form-control-lg" placeholder="Last Name" v-model="lastName">
-          </div>
-          <div class="mb-3">
-            <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
-          </div>
-          <div class="mb-3">
-            <input type="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
-          </div>
-          <div class="mb-5">
-            <button class="btn btn-primary btn-lg w-100 sign-up" @click.prevent="register">Sign up</button>
-          </div>
-        </form>
-      </div>
-      <div class="login">
-        <span>Already have an account?</span>
-        <router-link class="link" :to="{ name: 'Login'}">Login</router-link>
+  <div class="d-flex">
+    <div class="register-bg">
+      <img src="@/assets/img/register.jpg" alt="register_background">
+    </div>
+    <div class="register d-flex align-items-center p-5">
+      <div class="register-container text-center">
+        <h1 class="register-title mb-4">Register</h1>
+        <div class="error mb-4" v-if="error">{{ errorMsg }}</div>
+        <div class="register-form p-3">
+          <form>
+            <div class="mb-4">
+              <input type="text" class="form-control form-control-lg" placeholder="First Name" v-model="firstName">
+            </div>
+            <div class="mb-4">
+              <input type="text" class="form-control form-control-lg" placeholder="Last Name" v-model="lastName">
+            </div>
+            <div class="mb-4">
+              <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
+            </div>
+            <div class="mb-4">
+              <input type="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
+            </div>
+            <div class="mb-4">
+              <button class="btn btn-primary btn-lg w-100 sign-up" @click.prevent="register">Sign up</button>
+            </div>
+          </form>
+        </div>
+        <div class="login p-3">
+          <span>Already have an account?</span>
+          <router-link class="link" :to="{ name: 'Login'}">Login</router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -82,39 +87,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.register-bg {
+  flex: 1 1 50%;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 .register {
+  flex: 1 1 50%;
   background-color: #e9faff;
 
   .register-container {
-    background-color: #fff;
-    width: 500px;
-    padding: 50px;
+    width: 70%;
+    margin: 0 auto;
+  }
 
-    box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  .error {
+    color: red;
+  }
 
-    .error {
-      color: red;
-    }
+  .register-form {
+    .sign-up {
+      text-transform: uppercase;
 
-    .register-form {
-      .sign-up {
-        text-transform: uppercase;
-
-        &:hover {
-          background-color: #333 !important;
-        }
+      &:hover {
+        background-color: #333 !important;
       }
     }
+  }
 
-    .login {
-      .link {
-        text-decoration: none;
-        margin: 0 5px;
-      }
+  .login {
+    .link {
+      text-decoration: none;
+      margin: 0 5px;
     }
   }
 }

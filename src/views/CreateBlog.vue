@@ -42,7 +42,7 @@
 
 <script>
 import Loading from '@/components/Loading.vue'
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc, collection, getFirestore } from "firebase/firestore";
 
 export default {
@@ -75,29 +75,36 @@ export default {
           this.loading = true
           const storage = getStorage()
           const storageRef = ref(storage, `Images/BlogImages/${this.$store.state.blogPhotoName}`)
-          uploadBytes(storageRef, this.file).then((snapshot) => {
-            console.log('Uploaded a blob or file!', snapshot)
-          })
-
-          getDownloadURL(storageRef)
-          .then((url) => {
-            const timestamp = Date.now()
-            const db = getFirestore()
-            const blogRef = doc(collection(db, "blogs"))
-            setDoc(doc(db, "blogs", blogRef.id), {
-              blogId: blogRef.id,
-              blogTitle: this.blogTitle,
-              blogBody: this.blogBody,
-              blogPhoto: url,
-              blogPhotoName: this.file.name,
-              profileId: this.profileId,
-              date: timestamp
-            })
-            this.$store.dispatch('getPost')
-            this.loading = false
-            this.$router.push({ name: 'Blog' })
-            return
-          })
+          const uploadTask = uploadBytesResumable(storageRef, this.file)
+          uploadTask.on('state_changed', 
+            (snapshot) => {
+              console.log('Uploaded a blob or file!', snapshot)
+            }, 
+            (error) => {
+              console.log(error);
+            }, 
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                console.log('File available at', url)
+                const timestamp = Date.now()
+                const db = getFirestore()
+                const blogRef = doc(collection(db, "blogs"))
+                setDoc(doc(db, "blogs", blogRef.id), {
+                  blogId: blogRef.id,
+                  blogTitle: this.blogTitle,
+                  blogBody: this.blogBody,
+                  blogPhoto: url,
+                  blogPhotoName: this.file.name,
+                  profileId: this.profileId,
+                  date: timestamp
+                })
+                this.$store.dispatch('getPost')
+                this.loading = false
+                this.$router.push({ name: 'Blog' })
+                return
+              })
+            }
+          )
         }
         this.error = true
         this.errorMsg = "Please upload blog photo!"
