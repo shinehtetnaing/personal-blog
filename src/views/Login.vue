@@ -1,28 +1,33 @@
 <template>
-  <div class="login vh-100 d-flex justify-content-center align-items-center">
-    <div class="login-container text-center rounded-3">
-      <h1 class="login-title mb-4">Login</h1>
-      <div class="error mb-3" v-if="error">{{ errorMsg }}</div>
-      <div class="login-form">
-        <form>
-          <div class="mb-3">
-            <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
-          </div>
-          <div class="mb-3">
-            <input type="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
-          </div>
-          <div class="mb-5">
-            <button class="btn btn-primary btn-lg w-100 sign-in" @click.prevent="login">Sign in</button>
-          </div>
-        </form>
-      </div>
-      <div class="reset-sign-up">
-        <div class="mb-2">
-          <router-link class="link" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
+  <div class="d-flex">
+    <div class="login-bg">
+      <img src="@/assets/img/login.jpg" alt="login_background">
+    </div>
+    <div class="login d-flex align-items-center p-5">
+      <div class="login-container text-center">
+        <h1 class="login-title mb-4">Login</h1>
+        <div class="error mb-4" v-if="error">{{ errorMsg }}</div>
+        <div class="login-form p-3">
+          <form>
+            <div class="mb-4">
+              <input type="email" class="form-control form-control-lg" placeholder="E-mail" v-model="email">
+            </div>
+            <div class="mb-4">
+              <input type="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
+            </div>
+            <div class="mb-4">
+              <button class="btn btn-primary btn-lg w-100 sign-in" @click.prevent="login">Sign in</button>
+            </div>
+          </form>
         </div>
-        <div>
-          <span>Create an account?</span>
-          <router-link class="link" :to="{ name: 'Register'}">Sign up</router-link>
+        <div class="reset-sign-up p-3">
+          <div class="mb-2">
+            <router-link class="link" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
+          </div>
+          <div>
+            <span>Create an account?</span>
+            <router-link class="link" :to="{ name: 'Register'}">Sign up</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -62,40 +67,53 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.login-bg {
+  flex: 1 1 50%;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 .login {
+  flex: 1 1 50%;
   background-color: #e9faff;
 
   .login-container {
-    background-color: #fff;
-    width: 500px;
-    padding: 50px;
+    width: 70%;
+    margin: 0 auto;
+  }
 
-    box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
-    -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  .error {
+    color: red;
+  }
 
-    .error {
-      color: red;
-    }
+  .login-form {
+    .sign-in {
+      text-transform: uppercase;
 
-    .login-form {
-      .sign-in {
-        text-transform: uppercase;
-
-        &:hover {
-          background-color: #333 !important;
-        }
+      &:hover {
+        background-color: #333 !important;
       }
     }
+  }
 
-    .reset-sign-up {
-      .link {
-        text-decoration: none;
-        margin: 0 5px;
-      }
+  .reset-sign-up {
+    .link {
+      text-decoration: none;
+      margin: 0 5px;
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-bg {
+    display: none;
+  }
+
+  .login {
+    flex: auto;
   }
 }
 </style>
